@@ -9,7 +9,11 @@ var mongoose = require('mongoose'); //koneksi ke mongodb
 var config = require('./config/database'); //database config
 var bodyParser = require('body-parser'); //get data from post form
 var session = require('express-session'); //menghandle session
-//var expressValidator = require('express-validator');
+
+//setting global 
+mongoose.set('useFindAndModify', false);
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useNewUrlParser', true);
 
 //connect to mongodb
 mongoose.connect(config.database);
@@ -57,7 +61,9 @@ app.use(function (req, res, next) {
 // router
 var pages = require('./routes/pages');
 var adminPages = require('./routes/admin_pages');
+var adminCategories = require('./routes/admin_categories');
 
+app.use('/admin/categories', adminCategories);
 app.use('/admin/pages', adminPages);
 app.use('/', pages);
 
