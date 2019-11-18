@@ -27,9 +27,34 @@ router.get('/add-page', function(req, res) {
     res.render('admin/add_page', {
        title: title,
        slug: slug,
-       content: content,
+       content: content
     });
     
+});
+
+
+
+/*
+ * post reoder pages
+ */
+router.post('/reorder-pages', function (req, res) {
+    //console.log(req.body);    
+   var ids = req.body['id[]'];
+   var count = 0;
+   for (var i=0;i < ids.length;i ++){
+       var id = ids[i];
+       count++; 
+       
+       (function(count) {
+            PageModel.findById(id, function(err, page){
+                page.sorting = count;
+                page.save(function (err){
+                  if(err) return console.log(err);  
+                });
+            });
+        })(count);
+   }
+           
 });
 
 
@@ -88,30 +113,6 @@ router.post('/add-page', [
         });
     }
 });
-
-/* deprecated
-router.post('/add-page', function(req, res) {
-    req.checkBody('title', 'title must have a value').notEmpty();
-    req.checkBody('content', 'content must have a value').notEmpty();
-    
-    var title = req.body.title;
-    var slug = req.body.slug.replace(/\s+/g, '-').toLowerCase();
-    if (slug == "") slug = title.replace(/\s+/g, '-').toLowerCase();
-    var content = req.body.content;
-    
-    var errors = req.validationErrors();
-    if (errors) {
-        console.log('errors');
-        res.render('admin/add_page', {
-            title: title,
-            slug: slug,
-            content: content
-         });
-    } else {
-        console.log('success');
-    }
-});
- */
 
 //export module
 module.exports = router;
