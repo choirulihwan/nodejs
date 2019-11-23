@@ -1,7 +1,7 @@
 <%- include('../_layout/adminheader') %>
 
 <h2 class="page-title">Categories</h2>
-<a href="/admin/pages/add-page" class="btn btn-primary">Add a new category</a>
+<a href="/admin/categories/add-category" class="btn btn-primary">Add a new category</a>
 <br/><br/>
 
 <table class="table table-striped">
@@ -16,7 +16,7 @@
         <% categories.forEach(function(cat){ %>
         <tr>
             <td><%= cat.title %></td>
-            <td><a href="/admin/categories/edit-category/<%= cat.slug %>">Edit</a></td>
+            <td><a href="/admin/categories/edit-category/<%= cat._id %>">Edit</a></td>
             <td><a class="confirmDeletion" href="/admin/categories/delete-category/<%= cat._id %>">Delete</a></td>
         </tr>
         <% });%>

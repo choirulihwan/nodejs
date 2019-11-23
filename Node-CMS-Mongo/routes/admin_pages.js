@@ -115,9 +115,9 @@ router.post('/add-page', [
 /*
  * Get edit pages
  */
-router.get('/edit-page/:slug', function(req, res) {
+router.get('/edit-page/:id', function(req, res) {
     
-    PageModel.findOne({slug: req.params.slug}, function(err, page){
+    PageModel.findById(req.params.id, function(err, page){
        if (err) return console.log(err);
        
        res.render('admin/edit_page', {
@@ -133,7 +133,7 @@ router.get('/edit-page/:slug', function(req, res) {
 /*
  * Get post 
  */
-router.post('/edit-page/:slug', [
+router.post('/edit-page/:id', [
     check('title').isLength({ min:1 }),
     check('content').isLength({ min:1 })
 ], (req, res) => {
@@ -180,7 +180,7 @@ router.post('/edit-page/:slug', [
                             return console.log(err);
 
                         req.flash('success', 'Page updated');
-                        res.redirect('/admin/pages/edit-page/' + page.slug);
+                        res.redirect('/admin/pages/edit-page/' + page._id);
                     });
                     
                     

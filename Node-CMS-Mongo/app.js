@@ -9,6 +9,8 @@ var mongoose = require('mongoose'); //koneksi ke mongodb
 var config = require('./config/database'); //database config
 var bodyParser = require('body-parser'); //get data from post form
 var session = require('express-session'); //menghandle session
+var fileUpload = require('express-fileupload');
+
 
 //setting global 
 mongoose.set('useFindAndModify', false);
@@ -36,6 +38,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //set global errors
 app.locals.errors = null;
 
+//Express file upload
+app.use(fileUpload());
+
 //body-parser middleware
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -62,7 +67,9 @@ app.use(function (req, res, next) {
 var pages = require('./routes/pages');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
+var adminProducts = require('./routes/admin_products');
 
+app.use('/admin/products', adminProducts);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/pages', adminPages);
 app.use('/', pages);

@@ -1,9 +1,9 @@
 <%- include('../_layout/adminheader') %>
 
-<h2 class="page-title">Edit page</h2>
-<a href="/admin/pages" class="btn btn-primary">Back to all pages</a>
+<h2 class="page-title">Edit category</h2>
+<a href="/admin/categories" class="btn btn-primary">Back to all categories</a>
 <br/><br/>
-<form method="post" action="/admin/pages/edit-page/<%= id %>">
+<form method="post" action="/admin/categories/edit-category/<%= id %>">
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title" name="title" value="<%= title %>" placeholder="Title">
@@ -12,11 +12,6 @@
     <div class="form-group">
         <label for="slug">Slug</label>
         <input type="text" class="form-control" id="slug" name="slug" value="<%= slug %>" placeholder="Slug">
-    </div>
-    
-    <div class="form-group">
-        <label for="title">Content</label>
-        <textarea name="content" id="ta" class="form-control" placeholder="Content"><%= content %></textarea>
     </div>
     
     <input type="hidden" name="id" value="<%= id %>" />
