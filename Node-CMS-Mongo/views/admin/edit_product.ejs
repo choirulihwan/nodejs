@@ -50,7 +50,7 @@
     
     
     <div class="form-group">
-        <label for="">Upload Image</label>
+        <label for="">Upload New Image</label>
         <input type="file" class="form-control" id="img" name="img" />
         <img src="#" id="imgPreview" alt="" />
     </div>
@@ -74,17 +74,29 @@
 </ul>
 
 <br /><br />
-<form action="/admin/products/product-gallery/<%= id %>/" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm"></form>
+
+<form action="/admin/products/product-gallery/<%=id%>" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+    <div class="fallback">
+        <input type="file" name="file" multiple>
+        <input type="submit" value="Upload">        
+    </div>    
+</form>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/basic.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
-<script>
+<script type="text/javascript">
+    
+        
+    $('#imgPreview').hide();
+    
     //preview image
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             
             reader.onload = function(e) {
+                $('#imgPreview').show();
                 $('#imgPreview').attr('src', e.target.result).width(100).height(100);
             };
             
@@ -102,7 +114,7 @@
       init:function(){
           this.on("queuecomplete", function(file) {
               setTimeout(function(){
-                 location.reload() 
+                 location.reload(); 
               }, 1000);
           });
       }

@@ -38,6 +38,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 //set global errors
 app.locals.errors = null;
 
+//Get all pages
+var PageModel = require('./models/page_model');
+PageModel.find({}).sort({sorting:1}).exec(function(err, pages){
+   if (err) { 
+       console.log(err);
+   } else {
+       app.locals.pages = pages;
+   } 
+});
+
 //Express file upload
 app.use(fileUpload());
 
