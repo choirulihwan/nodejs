@@ -56,7 +56,7 @@ router.get('/:category/:product', function(req, res) {
             var galleryDir = 'public/product_images/' + product._id + '/gallery';
             fs.readdir(galleryDir, function(err, files){
                 if (err){
-                    console.log(err)
+                    console.log(err);
                 } else {
                     galleryImages = files;
                     res.render('product', {

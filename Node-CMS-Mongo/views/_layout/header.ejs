@@ -18,24 +18,30 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-     
+    <ul class="navbar-nav mr-auto">     
       <% pages.forEach(function(page){ %>
-      <% if (page.slug == "home") { %>
-        
+      <% if (page.slug == "home") { %>        
         <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
-        </li>
-        
+        </li>        
       <% } else { %>      
         <li class="nav-item">
             <a class="nav-link" href="<%= page.slug %>"><%= page.title %> </a>
         </li>
       <% } %>
       <% }); %>
-      
-      
     </ul>
+      <ul class="navbar-nav mr-auto">     
+          <li>
+              <a href="/cart/checkout">My Cart(
+                  <% if (typeof cart !== "undefined") { %>
+                  <%= cart.length %>
+                  <% } else { %>
+                  0
+                  <% } %>
+              )</a>
+          </li>
+      </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>

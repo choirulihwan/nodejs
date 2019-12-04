@@ -83,9 +83,15 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.get('*', function(req, res, next){
+    res.locals.cart = req.session.cart;
+    next();
+});
+
 // router
 var pages = require('./routes/pages');
 var products = require('./routes/products');
+var cart = require('./routes/cart');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
 var adminProducts = require('./routes/admin_products');
@@ -94,6 +100,7 @@ app.use('/admin/products', adminProducts);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/pages', adminPages);
 app.use('/products', products);
+app.use('/cart', cart);
 app.use('/', pages);
 
 
