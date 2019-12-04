@@ -48,6 +48,16 @@ PageModel.find({}).sort({sorting:1}).exec(function(err, pages){
    } 
 });
 
+//Get categories
+var CategoryModel = require('./models/category_model');
+CategoryModel.find({}).sort({sorting:1}).exec(function(err, categories){
+   if (err) { 
+       console.log(err);
+   } else {
+       app.locals.categories = categories;
+   } 
+});
+
 //Express file upload
 app.use(fileUpload());
 
@@ -75,6 +85,7 @@ app.use(function (req, res, next) {
 
 // router
 var pages = require('./routes/pages');
+var products = require('./routes/products');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
 var adminProducts = require('./routes/admin_products');
@@ -82,6 +93,7 @@ var adminProducts = require('./routes/admin_products');
 app.use('/admin/products', adminProducts);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/pages', adminPages);
+app.use('/products', products);
 app.use('/', pages);
 
 

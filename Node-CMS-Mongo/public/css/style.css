@@ -7,3 +7,30 @@ and open the template in the editor.
     Created on : Nov 18, 2019, 1:52:23 PM
     Author     : ThinkPad T430s i5
 */
+img.pimage {
+    width: 150px !important;
+}
+
+a.pa {
+    display: inline-block;
+    height: 160px;
+}
+
+.row.products {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.listgambar {
+    margin-bottom: 30px;
+}
+
+img.spi {
+    width:100%;
+}
+
+ul.gallery li {
+    display: inline-block;
+    margin: 20px;
+    list-style: none;
+}
