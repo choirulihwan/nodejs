@@ -10,6 +10,7 @@ var config = require('./config/database'); //database config
 var bodyParser = require('body-parser'); //get data from post form
 var session = require('express-session'); //menghandle session
 var fileUpload = require('express-fileupload');
+var passport = require('passport');
 
 
 //setting global 
@@ -71,7 +72,7 @@ app.use(bodyParser.json());
 app.use(session({
   secret: 'keyboard cat',
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: true
   //cookie: { secure: true }
 }));
 
@@ -83,8 +84,14 @@ app.use(function (req, res, next) {
   next();
 });
 
+require('./config/passport')(passport);
+//passwport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get('*', function(req, res, next){
     res.locals.cart = req.session.cart;
+    res.locals.user = req.user || null;
     next();
 });
 
@@ -92,6 +99,7 @@ app.get('*', function(req, res, next){
 var pages = require('./routes/pages');
 var products = require('./routes/products');
 var cart = require('./routes/cart');
+var users = require('./routes/users');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
 var adminProducts = require('./routes/admin_products');
@@ -101,6 +109,7 @@ app.use('/admin/categories', adminCategories);
 app.use('/admin/pages', adminPages);
 app.use('/products', products);
 app.use('/cart', cart);
+app.use('/users', users);
 app.use('/', pages);
 
 
