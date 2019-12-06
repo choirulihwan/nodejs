@@ -19,7 +19,7 @@ router.get('/register', function(req, res) {
  * post register
  */
 
-router.post('/:register', [
+router.post('/register', [
     check('name', 'cannot be empty').isLength({ min:1 }),
     check('email', 'Not valid').isEmail(),
     check('username', 'cannot be empty').isLength({ min:1 }),
@@ -81,8 +81,31 @@ router.post('/:register', [
                 
             }
         });
-    }
+    }    
+});
+
+/*
+ * get login
+ */
+router.get('/login', function(req, res) {
     
+    if(res.locals.user) res.redirect('/');
+    
+    res.render('login', {
+        title: 'Log in'
+    });
+});
+
+/*
+ * post login
+ */
+router.post('/login', function(req, res, next) {
+    
+    passport.authenticate('local', {
+       successRedirect: '/',
+       failureRedirect: '/users/login',
+       failureFlash: true     
+    })(req, res, next);
 });
 
 //export module
