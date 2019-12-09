@@ -1,0 +1,24 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+exports.isUser = function(req, res, next){
+   if(req.isAuthenticated()){
+       next();
+   } else {
+       req.flash('danger', 'Please login');
+       res.redirect('/users/login');
+   }
+};
+
+
+exports.isAdmin = function(req, res, next){
+   if(req.isAuthenticated() && res.locals.user.admin == 1){
+       next();
+   } else {
+       req.flash('danger', 'Please login as admin');
+       res.redirect('/users/login');
+   }
+};
+

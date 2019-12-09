@@ -11,7 +11,7 @@ const { check, validationResult } = require('express-validator');
  */
 router.get('/register', function(req, res) {
     res.render('register', {
-        title: 'Register'
+        title: 'Register'        
     });
 });
 
@@ -46,6 +46,7 @@ router.post('/register', [
     if (!errors.isEmpty()) {        
         res.render('register', {
             errors: errors.array(),
+            user:null,
             title: 'Register'            
          });
         //return res.status(422).json({ errors: errors.array() });        
@@ -106,6 +107,17 @@ router.post('/login', function(req, res, next) {
        failureRedirect: '/users/login',
        failureFlash: true     
     })(req, res, next);
+});
+
+/*
+ * get logout
+ */
+router.get('/logout', function(req, res) {
+    
+   req.logout();
+   req.flash('success', 'You are logged out');
+   res.redirect('/users/login');
+   
 });
 
 //export module

@@ -6,10 +6,12 @@ const { check, validationResult } = require('express-validator');
 //Get page model
 var CategoryModel = require('../models/category_model');
 
+var auth = require('../config/auth');
+var isAdmin = auth.isAdmin;
 /*
  * Get categories index
  */
-router.get('/', function(req, res) {
+router.get('/', isAdmin, function(req, res) {
     
     CategoryModel.find( function (err, categories){
         if(err) return console.log(err);
@@ -24,7 +26,7 @@ router.get('/', function(req, res) {
 /*
  * add categories
  */
-router.get('/add-category', function(req, res) {
+router.get('/add-category', isAdmin, function(req, res) {
     var title = "";
     var slug = "";
     
@@ -84,7 +86,7 @@ router.post('/add-category', [
 /*
  * Get edit categories
  */
-router.get('/edit-category/:id', function(req, res) {
+router.get('/edit-category/:id', isAdmin, function(req, res) {
     
     CategoryModel.findById(req.params.id, function(err, category){
        if (err) return console.log(err);
@@ -144,11 +146,7 @@ router.post('/edit-category/:id', [
                         req.flash('success', 'Category updated');
                         res.redirect('/admin/categories/edit-category/' + category._id);
                     });
-                    
-                    
                 });
-                
-                
             }
         });
     }
@@ -157,7 +155,7 @@ router.post('/edit-category/:id', [
 /*
  * Get delete
  */
-router.get('/delete-category/:id', function(req, res) {
+router.get('/delete-category/:id', isAdmin, function(req, res) {
     
     CategoryModel.findByIdAndRemove(req.params.id, function(err) {
         if(err) return console.log(err);

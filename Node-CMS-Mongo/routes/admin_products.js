@@ -13,10 +13,12 @@ var ProductModel = require('../models/product_model');
 //Get category model
 var CategoryModel = require('../models/category_model');
 
+var auth = require('../config/auth');
+var isAdmin = auth.isAdmin;
 /*
  * Get products index
  */
-router.get('/', function(req, res) {
+router.get('/', isAdmin, function(req, res) {
     var count;
     
     ProductModel.count(function(err, c) {
@@ -34,7 +36,7 @@ router.get('/', function(req, res) {
 /*
  * Get add product
  */
-router.get('/add-product', function(req, res) {
+router.get('/add-product', isAdmin, function(req, res) {
     var title = "";
     var desc = "";
     var slug = "";
@@ -161,7 +163,7 @@ router.post('/add-product', [
 /*
  * Get edit product
  */
-router.get('/edit-product/:id', function(req, res) {
+router.get('/edit-product/:id', isAdmin, function(req, res) {
     
     var errors;
     
@@ -318,7 +320,7 @@ router.post('/product-gallery/:id', function(req, res) {
 /*
  * Get image delete
  */
-router.get('/delete-image/:image', function(req, res) {
+router.get('/delete-image/:image', isAdmin, function(req, res) {
     
     var originalImage = 'public/product_images/' + req.query.id + '/gallery/' + req.params.image;
     var thumbImage = 'public/product_images/' + req.query.id + '/gallery/thumbs/' + req.params.image;
@@ -344,7 +346,7 @@ router.get('/delete-image/:image', function(req, res) {
 /*
  * Get products deleted
  */
-router.get('/delete-product/:id', function(req, res) {
+router.get('/delete-product/:id', isAdmin, function(req, res) {
     
     var id = req.params.id;
     var path = 'public/product_images/' + id;

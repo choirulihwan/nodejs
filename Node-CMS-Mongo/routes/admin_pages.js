@@ -6,10 +6,13 @@ const { check, validationResult } = require('express-validator');
 //Get page model
 var PageModel = require('../models/page_model');
 
+var auth = require('../config/auth');
+var isAdmin = auth.isAdmin;
+
 /*
  * Get pages index
  */
-router.get('/', function(req, res) {
+router.get('/', isAdmin, function(req, res) {
     //res.send('Admin area');
     PageModel.find({}).sort({sorting:1}).exec(function (err, pages){
         res.render('admin/pages', {
@@ -21,7 +24,7 @@ router.get('/', function(req, res) {
 /*
  * Get pages
  */
-router.get('/add-page', function(req, res) {
+router.get('/add-page', isAdmin, function(req, res) {
     var title = "";
     var slug = "";
     var content = "";
@@ -143,7 +146,7 @@ router.post('/add-page', [
 /*
  * Get edit pages
  */
-router.get('/edit-page/:id', function(req, res) {
+router.get('/edit-page/:id', isAdmin, function(req, res) {
     
     PageModel.findById(req.params.id, function(err, page){
        if (err) return console.log(err);
@@ -231,7 +234,7 @@ router.post('/edit-page/:id', [
 /*
  * Get pages delete
  */
-router.get('/delete-page/:id', function(req, res) {
+router.get('/delete-page/:id', isAdmin, function(req, res) {
     
     PageModel.findByIdAndRemove(req.params.id, function(err) {
         if(err) 
