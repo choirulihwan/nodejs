@@ -1,0 +1,21 @@
+{
+  "name": "weathermicroservice",
+  "version": "1.0.0",
+  "description": "Build microservice architecture app that use weather api",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "microservice",
+    "api",
+    "weather"
+  ],
+  "author": "Choirul Ihwan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",    
+    "nodemon": "^2.0.15",
+    "request": "^2.88.2"
+  }
+}

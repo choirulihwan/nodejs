@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= subject %></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1><%= subject %></h1>
+      <form action="/" method="POST">
+        <div class="form-group">
+          <label for="latitude">Latitude</label>
+          <input type="text" class="form-control" id="latitude" aria-describedby="emailHelp" value="<%= lat %>" placeholder="Enter latitude" name="latitude">
+        </div>
+        <div class="form-group">
+          <label for="longitude">Longitude</label>
+          <input type="text" class="form-control" id="longitude" aria-describedby="emailHelp" value="<%= long %>" placeholder="Enter longitude" name="longitude">
+        </div>        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      <% if (typeof response == 'undefined') { %>   
+      <% } else { %>
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Hasil Pencarian</h1>          
+            <p>Wilayah: <%= location %></p>
+            <p>Jam cuaca: <%= jam %></p>
+            <p>Jam terbit: <%= terbit %></p>          
+            <p>Jam terbenam: <%= terbenam %></p>          
+        </div>
+      </div>
+      <% } %>
+
+    </div>
+
+  </body>
+</html>
