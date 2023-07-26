@@ -1,0 +1,20 @@
+{
+  "name": "choirul-npm",
+  "version": "1.0.0",
+  "description": "latihan npm",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "dev": "ls",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "choirul ihwan",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "validator": "^13.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

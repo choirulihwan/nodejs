@@ -1,0 +1,12 @@
+<h2>Hello <%= nama %></h2>
+<h3>List Anak</h3>
+<% if (anak.length < 1) { %>
+    <p>Data anak kosong</p>
+<% } else { %>    
+    <ul>
+    <% anak.forEach(a => { %>
+        <li>Nama: <%= a.nama  %></li>
+        <li>HP: <%= a.hp  %></li>
+    <% }) %>       
+    </ul>
+<% } %>

@@ -1,0 +1,41 @@
+<div class="container mt-3">
+    <h2><%= title %></h2>
+    <div class="row">
+        <div class="col-sm-12">
+          <% if (typeof errors != 'undefined') { %>
+           <div class="alert alert-danger" role="alert">
+              <ul>
+                <% errors.forEach(err => { %>
+                  <li><%= err.param %>: <%= err.msg %></li>
+                <% }) %>                
+              </ul>
+           </div>
+          <% } %>
+          <form method="post" action="<%=action%>">
+            <input type="hidden" name="old_nama" value="<%- (typeof contact != 'undefined') ? contact.old_nama || contact.nama : '' %>" required>
+            <div class="row mb-3">
+              <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="nama" name="nama" value="<%- (typeof contact != 'undefined') ? contact.nama : '' %>" required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="email" class="col-sm-2 col-form-label">email</label>
+              <div class="col-sm-4">
+                <input type="email" class="form-control" id="email" name="email" value="<%- (typeof contact != 'undefined') ? contact.email : '' %>" required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="hp" class="col-sm-2 col-form-label">No HP</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="hp" name="hp" value="<%- (typeof contact != 'undefined') ? contact.hp : '' %>" required>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </form>
+        </div>
+    </div>
+</div>
