@@ -1,11 +1,14 @@
+
 // require express
 const express = require("express")
 
 //create an app using express constructor
 const weatherApp = express()
 
+require('dotenv').config();
+
 // declare your port
-const port = 5000
+const port = process.env.PORT || 3000
 
 // declare route
 const routes = require("./api/routes")

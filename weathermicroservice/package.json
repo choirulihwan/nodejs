@@ -14,7 +14,8 @@
   "author": "Choirul Ihwan",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.3",    
+    "dotenv": "^16.3.1",
+    "express": "^4.17.3",
     "nodemon": "^2.0.15",
     "request": "^2.88.2"
   }

@@ -4,7 +4,7 @@ let request = require("request");
 // assign your api key and api url to a variable
 
 //sewon
-const apiKey = "your api key here";
+const apiKey = process.env.API_KEY
 const apiUrl = "http://api.openweathermap.org/geo/1.0/reverse?";
 
 let weather = {

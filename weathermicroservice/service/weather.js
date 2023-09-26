@@ -7,7 +7,7 @@ let request = require("request");
 //const lat = "-7.84";
 //const lon = "110.37";
 const exclude = "hourly,daily,minutely";
-const apiKey = "your api key here";
+const apiKey = process.env.API_KEY;
 const apiUrl = "https://api.openweathermap.org/data/2.5/onecall?";
 
 let weather = {
