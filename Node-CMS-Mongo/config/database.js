@@ -5,5 +5,5 @@
  */
 
 module.exports = {
-    database: 'mongodb://192.168.10.3/cmscart'
+    database: 'mongodb://' + process.env.HOST + '/' + process.env.DBNAME
 };

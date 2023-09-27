@@ -34,7 +34,7 @@
     
     <div class="form-group">
         <label for="">Price</label>
-        <input type="text" class="form-control" id="price" name="price" value="<%= price %>" placeholder="Price">
+        <input type="text" class="form-control nominal text-right" id="price" name="price" value="<%= price %>" placeholder="Price">
     </div>
     
     <div class="form-group">
@@ -107,6 +107,19 @@
     $("#img").change(function(){
        readURL(this);
     });
+
+    $("#price").blur(function(e){
+        number_format(e, process.env.LOCALE);
+    });
+
+    $("#price").focus(function(e){
+        reset_number_format(e);
+    });
+
+    $("#price").keypress(function(e){
+        only_number(e);
+    });
+
     
     //Dropzone
     Dropzone.options.dropzoneForm = {

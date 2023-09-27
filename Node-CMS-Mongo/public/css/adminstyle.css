@@ -42,3 +42,8 @@ ul.gallery li {
 table.alignmiddle td {
     vertical-align: middle !important;
 }
+
+.nominal {
+    font-weight: bold;
+    font-size: larger;
+}

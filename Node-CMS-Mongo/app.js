@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var mongoose = require('mongoose'); //koneksi ke mongodb
@@ -114,7 +115,7 @@ app.use('/', pages);
 
 
 //start server
-var port = 3000;
+var port = process.env.PORT;
 app.listen(port, function(){
-    console.log('Server started on port' + port);
+    console.log('Server started on port ' + port);
 });

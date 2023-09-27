@@ -12,6 +12,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
+    "dotenv": "^16.3.1",
     "ejs": "^2.7.2",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",
@@ -21,6 +22,7 @@
     "fs-extra": "^8.1.0",
     "mkdirp": "^0.5.1",
     "mongoose": "^5.7.11",
+    "nodemon": "^3.0.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "resize-img": "^2.0.0"

@@ -21,7 +21,7 @@ var isAdmin = auth.isAdmin;
 router.get('/', isAdmin, function(req, res) {
     var count;
     
-    ProductModel.count(function(err, c) {
+    ProductModel.countDocuments(function(err, c) {
        count = c; 
     });
     
@@ -60,7 +60,7 @@ router.get('/add-product', isAdmin, function(req, res) {
 router.post('/add-product', [
     check('title').isLength({ min:1 }),
     check('desc').isLength({ min:1 }),
-    check('price').isDecimal(),
+    // check('price').isDecimal(),
     check('img').custom((value, { req }) => {
         var extension = (path.extname(req.files.img.name)).toLowerCase(); 
         switch (extension) {
@@ -80,15 +80,15 @@ router.post('/add-product', [
     
     var imageFile = typeof req.files.img !== "undefined" ? req.files.img.name : "";    
     var title = req.body.title;
-    var slug = req.body.slug.replace(/\s+/g, '-').toLowerCase();
-    if (slug === "") slug = title.replace(/\s+/g, '-').toLowerCase();
+    // var slug = req.body.slug.replace(/\s+/g, '-').toLowerCase();
+    // if (slug === "") slug = title.replace(/\s+/g, '-').toLowerCase();
+    var slug = req.body.slug;
     var desc = req.body.desc;
-    var price = req.body.price;
-    var category = req.body.category;
-    
-    
+    var price = req.body.price.replace(/[,.]/g, "");
+    var category = req.body.category;       
+   
     var errors = validationResult(req);
-    
+        
     if (!errors.isEmpty()) {        
         CategoryModel.find(function(err, categories){
             res.render('admin/add_product', {
@@ -100,7 +100,7 @@ router.post('/add-product', [
                 price: price
              });
          });
-        //return res.status(422).json({ errors: errors.array() });
+        // return res.status(422).json({ errors: errors.array() });
         
     } else {
         ProductModel.findOne({slug: slug}, function(err, product){
@@ -117,8 +117,8 @@ router.post('/add-product', [
                 });
             } else {
                 
-                //process.exit();
-                var price2 = parseFloat(price).toFixed(2);
+                // process.exit();
+                var price2 = parseFloat(price).toFixed(0);
                 var product = new ProductModel({
                    title: title,
                    slug: slug,
@@ -192,11 +192,13 @@ router.get('/edit-product/:id', isAdmin, function(req, res) {
                             desc: p.desc,
                             categories:categories,
                             category: p.category.replace(/\s+/g, '-').toLowerCase(),
-                            price: parseFloat(p.price).toFixed(2),
+                            // price: parseFloat(p.price).toFixed(0).toLocaleString('id-ID'),
+                            price: p.price.toLocaleString(process.env.LOCALE),
                             image: p.image,
                             galleryImages: galleryImages,
                             id: p._id
                         });
+                        
                     }
                 });
             }
@@ -217,7 +219,7 @@ router.get('/edit-product/:id', isAdmin, function(req, res) {
 router.post('/edit-product/:id', [
     check('title').isLength({ min:1 }),
     check('desc').isLength({ min:1 }),
-    check('price').isDecimal()    
+    // check('price').isDecimal()    
 ], (req, res) => {
     
     //var imageFile = typeof req.files.img !== "undefined" ? req.files.img.name : "";    
@@ -230,7 +232,7 @@ router.post('/edit-product/:id', [
     var slug = req.body.slug.replace(/\s+/g, '-').toLowerCase();
     if (slug === "") slug = title.replace(/\s+/g, '-').toLowerCase();
     var desc = req.body.desc;
-    var price = req.body.price;
+    var price = req.body.price.replace(/[,.]/g, "");
     var category = req.body.category;
     var pimage = req.body.pimage;
     var id = req.params.id;
@@ -260,7 +262,7 @@ router.post('/edit-product/:id', [
                     p.title = title;
                     p.slug = slug;
                     p.desc = desc;
-                    p.price = parseFloat(price).toFixed(2);
+                    p.price = parseFloat(price).toFixed(0);
                     p.category = category;
                     if (imageFile != ""){
                         p.image = imageFile;
