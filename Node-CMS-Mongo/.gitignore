@@ -1,4 +1,5 @@
 node_modules/
 _dump/
+dump/
 .env
 public/product_images/

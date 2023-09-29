@@ -5,5 +5,5 @@
  */
 
 module.exports = {
-    database: 'mongodb://' + process.env.HOST + '/' + process.env.DBNAME
+    database: 'mongodb://' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME
 };
