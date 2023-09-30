@@ -21,17 +21,12 @@ mongoose.set('useNewUrlParser', true);
 //connect to mongodb
 //database config    
 if (process.env.DBLOCATION == 'local') {
-    var config = require('./config/database'); 
-    mongoose.connect(config.database);
-    var db = mongoose.connection;
+    var config = require('./config/database');     
 } else {
-    var config = require('./config/database_cloud');
-    mongoose.connect(config.database);
-    var db = mongoose.connection.useDb(process.env.DBNAME, {
-        useCache: true
-    });    
+    var config = require('./config/database_cloud');   
 }
-
+mongoose.connect(config.database);
+var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
