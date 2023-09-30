@@ -7,7 +7,6 @@ require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var mongoose = require('mongoose'); //koneksi ke mongodb
-var config = require('./config/database'); //database config
 var bodyParser = require('body-parser'); //get data from post form
 var session = require('express-session'); //menghandle session
 var fileUpload = require('express-fileupload');
@@ -20,6 +19,13 @@ mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
 
 //connect to mongodb
+//database config    
+if (process.env.DBLOCATION == 'local') {
+    var config = require('./config/database'); 
+} else {
+    var config = require('./config/database_cloud');
+}
+
 mongoose.connect(config.database);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
