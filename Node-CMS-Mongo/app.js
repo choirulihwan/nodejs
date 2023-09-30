@@ -22,16 +22,21 @@ mongoose.set('useNewUrlParser', true);
 //database config    
 if (process.env.DBLOCATION == 'local') {
     var config = require('./config/database'); 
+    mongoose.connect(config.database);
+    var db = mongoose.connection;
 } else {
     var config = require('./config/database_cloud');
+    mongoose.connect(config.database);
+    var db = mongoose.connection.useDb(process.env.DBNAME, {
+        useCache: true
+    });    
 }
 
-mongoose.connect(config.database);
-var db = mongoose.connection;
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
    //connection success
-   console.log('connected to mongodb');
+   console.log('connected to ' + process.env.DBHOST);
 });
 
 //init app
