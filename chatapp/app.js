@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const socketio = require('socket.io')
 
@@ -10,7 +11,7 @@ app.get('/', (req, res) => {
 })
 
 const server = app.listen(process.env.PORT || 3000, () => {
-    console.log('server is running')
+    console.log('server is running on port ' + process.env.PORT)
 })
 
 //initialize socket io
