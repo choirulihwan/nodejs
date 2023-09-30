@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 const app = express();
 // const querystring = require('querystring');
 // var http = require('http');
+require('dotenv').config();
 let request = require("request");
 let functions = require("./functions");
 const { Template } = require('ejs');
@@ -25,10 +26,9 @@ app.get('/', (req, res) => {
     });
 });
 
-app.post('/', urlEncodeParser, (req, res) => {
-    // console.log(req.body['latitude']);
+app.post('/', urlEncodeParser, (req, res) => {    
     // res.sendStatus(200);
-    let url_loc = "http://localhost:5000/location/" + req.body.latitude + "/" + req.body.longitude;
+    let url_loc = process.env.URLSERVICE + 'location/'  + req.body.latitude + "/" + req.body.longitude;    
     request(url_loc,function(error, response, body) {
         if(!error && response.statusCode == 200) {
             response = JSON.parse(body);            
@@ -38,7 +38,7 @@ app.post('/', urlEncodeParser, (req, res) => {
         }
     });
 
-    let url = "http://localhost:5000/weather/" + req.body.latitude + "/" + req.body.longitude;
+    let url = process.env.URLSERVICE + 'weather/' + req.body.latitude + "/" + req.body.longitude;
     request(url,function(error, response, body) {
         if(!error && response.statusCode == 200) {
             response = JSON.parse(body);
@@ -71,7 +71,7 @@ app.post('/', urlEncodeParser, (req, res) => {
 
 
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log("server listening on: " + port)
 });
